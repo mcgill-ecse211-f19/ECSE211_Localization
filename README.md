@@ -11,7 +11,11 @@ package ca.mcgill.ecse211.lab4;
 **Do not modify the other files in this repository!**
 
 They are meant to help us (and you) with grading the code. You can see the results
-of `checkstyle` at travis-ci.com/mcgill-ecse211-f19/lab-4-ecse211_gXX, where XX is 
+of `checkstyle` at
+
+travis-ci.com/mcgill-ecse211-f19/lab-4-ecse211_gXX
+
+where XX is 
 your group number. You may also run `checkstyle` locally before you commit by running
 
 ```bash
