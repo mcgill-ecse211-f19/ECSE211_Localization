@@ -62,7 +62,8 @@ public class Navigation extends Thread{
 
     //calculate distance to move and move said distance
     final double distance = Math.sqrt( dx*dx + dy*dy);
-
+    leftMotor.setSpeed(ROTATE_SPEED);
+    rightMotor.setSpeed(ROTATE_SPEED);
     leftMotor.rotate((int)(distance*180/(WHEEL_RAD*Math.PI)), true);
     rightMotor.rotate((int)(distance*180/(WHEEL_RAD*Math.PI)));
   }

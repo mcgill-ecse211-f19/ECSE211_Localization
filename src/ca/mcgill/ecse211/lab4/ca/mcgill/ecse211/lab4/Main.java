@@ -8,12 +8,15 @@ import ca.mcgill.ecse211.lab4.Display;
 import ca.mcgill.ecse211.lab4.Odometer;
 
 public class Main {
+  static Display display = new Display();
   public static void main(String[] args) {
+    
+    
 
     
   new Thread(odometer).start();
   
-  new Thread(new Display()).start();
+  new Thread(display).start();
   
   new Thread(UP).start();
   
@@ -26,9 +29,12 @@ public class Main {
   else {
     UL.risingEdge();
   }
-  
+  Button.waitForAnyPress();
+  System.exit(0);
   
   }
+  
+  
 
 
 } 

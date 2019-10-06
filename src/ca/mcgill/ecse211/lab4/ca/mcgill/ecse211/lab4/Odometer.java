@@ -26,6 +26,8 @@ public class Odometer implements Runnable {
    * The x-axis position in cm.
    */
   private volatile double x;
+  
+  private double offset;
 
   /**
    * The y-axis position in cm.
@@ -78,6 +80,7 @@ public class Odometer implements Runnable {
    */
   private Odometer() {
     setXYT(TILE_SIZE, TILE_SIZE, 0);
+    this.offset = 0;
   }
 
   /**
@@ -204,7 +207,7 @@ public class Odometer implements Runnable {
     }
 
   }
-
+  
   /**
    * Overrides the values of x, y and theta. Use for odometry correction.
    * 
@@ -242,6 +245,15 @@ public class Odometer implements Runnable {
       lock.unlock();
     }
   }
+  
+  
+  public void setOffset(double off) {
+    this.offset = off;
+  }
+  public double getOffset() {
+    return this.offset;
+  }
+
 
   /**
    * Overwrites y. Use for odometry correction.

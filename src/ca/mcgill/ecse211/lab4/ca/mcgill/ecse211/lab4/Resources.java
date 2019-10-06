@@ -63,7 +63,7 @@ public class Resources {
    * The Ultrasonic sensor
    */
   public static final EV3UltrasonicSensor US_SENSOR = 
-      new EV3UltrasonicSensor(LocalEV3.get().getPort("S3"));
+      new EV3UltrasonicSensor(LocalEV3.get().getPort("S4"));
   /**
    * The localizer
    */
