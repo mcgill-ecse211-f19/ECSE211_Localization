@@ -78,6 +78,10 @@ public class Navigation extends Thread{
     rightMotor.rotate((int) (-1 * theta*CONSTANT/2));
   }
   
+  public static  void turnToInstantReturn(double theta) {
+    leftMotor.rotate((int) (theta*CONSTANT/2),true);
+    rightMotor.rotate((int) (-1 * theta*CONSTANT/2),true);
+  }
   public static void moveForward(double distance) {
     leftMotor.setSpeed(ROTATE_SPEED);
     rightMotor.setSpeed(ROTATE_SPEED);

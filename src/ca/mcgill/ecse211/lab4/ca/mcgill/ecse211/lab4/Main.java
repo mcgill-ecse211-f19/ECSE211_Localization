@@ -14,6 +14,8 @@ public class Main {
     new Thread(odometer).start();
     new Thread(display).start();
     new Thread(UP).start();
+    
+    double[] angles = new double[4];
 
     // Button choice prior to light localization
     int buttonChoice = Button.waitForAnyPress();
@@ -37,8 +39,10 @@ public class Main {
     rightMotor.setSpeed(ROTATE_SPEED);
     leftMotor.forward();
     rightMotor.forward();
+  
     while(true) {
       if(LightLocalizer.blackLineTrigger()) {
+        Sound.beep();
         leftMotor.setSpeed(0);
         rightMotor.setSpeed(0);
         break; 
@@ -47,10 +51,33 @@ public class Main {
 
 
     }
-    Navigation.moveForward(-12);   
+    Navigation.moveForward(-12);
+    
+    Navigation.turnToInstantReturn(360);
+    
+    
+    int i = 0;
+    while(true) {
+      if(LightLocalizer.blackLineTrigger()) {
+        LCD.drawString("IF BLOCK REACHED", 0, 6);
+        angles[i] = display.theta;
+        Sound.beep();
+        i++;
+      }
+      if(i == 4)
+        break;
+      
+    }
+    double thetaY = angles[1]-angles[3];
+    double thetaX = angles[0]-angles[2];
+    double x = -12 * Math.cos(Math.toRadians(thetaY/2));
+    double y = -12 * Math.cos(Math.toRadians(thetaX/2));
+    odometer.setXYT(x,y,odometer.getXYT()[2]);
 
 
 
+    double deltaTheta = 90 - angles[3]+180+thetaY/2;
+    odometer.setOffset(odometer.getOffset()+deltaTheta);
 
     Button.waitForAnyPress();
     System.exit(0);
