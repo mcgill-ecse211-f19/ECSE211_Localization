@@ -11,12 +11,10 @@ public class Main {
   static Display display = new Display();
   public static void main(String[] args) {
     
-    
-
-    
   new Thread(odometer).start();
   
   new Thread(display).start();
+ 
   
   new Thread(UP).start();
   

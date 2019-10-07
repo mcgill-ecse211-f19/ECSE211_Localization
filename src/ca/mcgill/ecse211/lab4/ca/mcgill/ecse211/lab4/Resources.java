@@ -1,8 +1,10 @@
 package ca.mcgill.ecse211.lab4;
 
+import com.sun.org.apache.xerces.internal.util.Status;
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.lcd.TextLCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
+import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 
 /**
@@ -72,6 +74,11 @@ public class Resources {
    * The poller
    */
   public static final UltrasonicPoller UP = new UltrasonicPoller();
+  /**
+   * The light sensor 
+   */
+  public static final EV3ColorSensor colorSensor = 
+      new EV3ColorSensor(LocalEV3.get().getPort("S1"));
   /**
    * The LCD.
    */
