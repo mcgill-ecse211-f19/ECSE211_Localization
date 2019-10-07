@@ -68,8 +68,8 @@ public class Main {
         break;
       
     }
-    double thetaY = angles[1]-angles[3];
-    double thetaX = angles[0]-angles[2];
+    double thetaY = angles[3]-angles[1];
+    double thetaX = angles[2]-angles[0];
     double x = -12 * Math.cos(Math.toRadians(thetaY/2));
     double y = -12 * Math.cos(Math.toRadians(thetaX/2));
     odometer.setXYT(x,y,odometer.getXYT()[2]);
@@ -78,6 +78,14 @@ public class Main {
 
     double deltaTheta = 90 - angles[3]+180+thetaY/2;
     odometer.setOffset(odometer.getOffset()+deltaTheta);
+    Navigation.travelTo(0, 0);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    Navigation.turnTo(-1*display.theta);
 
     Button.waitForAnyPress();
     System.exit(0);
