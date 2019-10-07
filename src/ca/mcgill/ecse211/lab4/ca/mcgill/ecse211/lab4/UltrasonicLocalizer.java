@@ -82,7 +82,7 @@ public class UltrasonicLocalizer {
       
     }
    }
-    if(alpha<beta)
+    if(alpha>beta)
     odometer.setOffset(225-(alpha+beta)/2);
     else
       odometer.setOffset(45-(alpha+beta)/2);

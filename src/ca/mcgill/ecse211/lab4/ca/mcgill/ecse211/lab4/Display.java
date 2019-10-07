@@ -29,7 +29,7 @@ public class Display implements Runnable {
 
       // Retrieve x, y and Theta information
       position = odometer.getXYT();
-      theta = 360+(odometer.getOffset() + position[2])%360 ;
+      theta = (360+(odometer.getOffset() + position[2]))%360 ;
       
       // Print x,y, and theta information
       DecimalFormat numberFormat = new DecimalFormat("######0.00");
