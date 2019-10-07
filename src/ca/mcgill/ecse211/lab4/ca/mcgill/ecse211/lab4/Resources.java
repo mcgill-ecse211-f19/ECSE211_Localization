@@ -81,7 +81,7 @@ public class Resources {
    * proportionality constant representing ratio of wheel turn degrees to robot turn degrees
    * 1:6.95
    */
-  public static final double CONSTANT = 6.95;
+  public static final double CONSTANT = 7.09;
   
   public static final int D = 40;
   
