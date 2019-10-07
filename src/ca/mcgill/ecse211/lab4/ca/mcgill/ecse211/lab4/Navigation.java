@@ -77,6 +77,15 @@ public class Navigation extends Thread{
     leftMotor.rotate((int) (theta*CONSTANT/2),true);
     rightMotor.rotate((int) (-1 * theta*CONSTANT/2));
   }
+  
+  public static void moveForward(double distance) {
+    leftMotor.setSpeed(ROTATE_SPEED);
+    rightMotor.setSpeed(ROTATE_SPEED);
+    leftMotor.rotate((int)(distance*180/(WHEEL_RAD*Math.PI)), true);
+    rightMotor.rotate((int)(distance*180/(WHEEL_RAD*Math.PI)));
+    
+    
+  }
 
   /**
    * Flag to notify if robot is navigating or turning to a way-point

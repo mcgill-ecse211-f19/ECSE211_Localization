@@ -79,7 +79,7 @@ public class Odometer implements Runnable {
    * cannot be accessed externally.
    */
   private Odometer() {
-    setXYT(TILE_SIZE, TILE_SIZE, 0);
+    setXYT(0, 0, 0);
     this.offset = 0;
   }
 
