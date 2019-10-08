@@ -28,9 +28,9 @@ public class Odometer implements Runnable {
   private volatile double x;
 
   /**
-   * 
+   * Offset value for Theta
    */
-  private double offset;
+  private double theta_offset;
 
   /**
    * The y-axis position in cm.
@@ -83,7 +83,7 @@ public class Odometer implements Runnable {
    */
   private Odometer() {
     setXYT(0, 0, 0);
-    this.offset = 0;
+    this.theta_offset = 0;
   }
 
   /**
@@ -249,21 +249,21 @@ public class Odometer implements Runnable {
   }
 
   /**
-   * TODO: Method Description
+   * Method sets the theta offset value
    * 
    * @param off value to offset by
    */
   public void setOffset(double off) {
-    this.offset = off;
+    this.theta_offset = off;
   }
 
   /**
-   * TODO: Method returns offset value
+   * TODO: Method returns the theta offset value
    * 
    * @return offset value
    */
   public double getOffset() {
-    return this.offset;
+    return this.theta_offset;
   }
 
 
