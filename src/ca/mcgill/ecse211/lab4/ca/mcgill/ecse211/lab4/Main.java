@@ -1,24 +1,22 @@
 package ca.mcgill.ecse211.lab4;
 
 import lejos.hardware.Button;
-import lejos.hardware.Sound;
 import static ca.mcgill.ecse211.lab4.Resources.*;
 import ca.mcgill.ecse211.lab4.Display;
-import ca.mcgill.ecse211.lab4.Odometer;
+
 
 public class Main {
-  static Display display = new Display();
+  public static Display display = new Display();
+  public static int buttonChoice = 0;
 
   public static void main(String[] args) {
     // Start threads
     new Thread(odometer).start();
-    new Thread(display).start();
     new Thread(UP).start();
 
-    double[] angles = new double[4];
-
     // Button choice prior to light localization
-    int buttonChoice = Button.waitForAnyPress();
+    buttonChoice = chooseUSLocalization();
+    new Thread(display).start();
 
     // Falling edge for left button
     if (buttonChoice == Button.ID_LEFT) {
@@ -34,68 +32,29 @@ public class Main {
     // ButtonChoice for lightLocalizer
     Button.waitForAnyPress();
 
-    Navigation.turnTo(45);
-    leftMotor.setSpeed(ROTATE_SPEED);
-    rightMotor.setSpeed(ROTATE_SPEED);
-    leftMotor.forward();
-    rightMotor.forward();
+    // Light localization routine
+    LightLocalizer.lightLocalize();
 
-    while (true) {
-      if (LightLocalizer.blackLineTrigger()) {
-        Sound.beep();
-        leftMotor.setSpeed(0);
-        rightMotor.setSpeed(0);
-        break;
-      }
+    while (Button.waitForAnyPress() != Button.ID_ESCAPE) {
+    } // do nothing
 
-
-
-    }
-    Navigation.moveForward(-12);
-
-    Navigation.turnToInstantReturn(360);
-
-
-    int i = 0;
-    while (true) {
-      if (LightLocalizer.blackLineTrigger()) {
-        LCD.drawString("IF BLOCK REACHED", 0, 6);
-        angles[i] = display.theta;
-        Sound.beep();
-        i++;
-      }
-      if (i == 4)
-        break;
-
-    }
-    double thetaY = angles[3] - angles[1];
-    double thetaX = angles[2] - angles[0];
-    double x = -12 * Math.cos(Math.toRadians(thetaY / 2));
-    double y = -12 * Math.cos(Math.toRadians(thetaX / 2));
-    odometer.setXYT(x, y, odometer.getXYT()[2]);
-
-
-
-    double deltaTheta = 90 - angles[3] + 180 + thetaY / 2;
-    odometer.setOffset(odometer.getOffset() + deltaTheta);
-    if (buttonChoice == Button.ID_RIGHT) {
-      Navigation.travelTo(0, 0, true);
-    } else {
-      Navigation.travelTo(0, 0);
-    }
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    Navigation.turnTo(-1 * display.theta);
-
-    Button.waitForAnyPress();
     System.exit(0);
 
   }
 
+  /**
+   * Asks the user for the type of US localization routine to run
+   * 
+   * @return the user choice
+   */
+  private static int chooseUSLocalization() {
+    int buttonChoice;
+    Display.showText("< Left | Right >", "  Fall |  Ris  ", " -ing  | -ing  ", "  edge |  edge ", "       |       ");
+    do {
+      buttonChoice = Button.waitForAnyPress();
+    } while (buttonChoice != Button.ID_LEFT && buttonChoice != Button.ID_RIGHT);
+    return buttonChoice;
+  }
 
 
 }

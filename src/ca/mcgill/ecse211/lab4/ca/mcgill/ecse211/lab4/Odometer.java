@@ -6,7 +6,7 @@ import java.util.concurrent.locks.Lock;
 import ca.mcgill.ecse211.lab4.Navigation;
 import java.util.concurrent.locks.ReentrantLock;
 import sun.security.x509.X400Address;
-//static import to avoid duplicating variables and make the code easier to read
+// static import to avoid duplicating variables and make the code easier to read
 import static ca.mcgill.ecse211.lab4.Resources.*;
 
 /**
@@ -26,7 +26,10 @@ public class Odometer implements Runnable {
    * The x-axis position in cm.
    */
   private volatile double x;
-  
+
+  /**
+   * 
+   */
   private double offset;
 
   /**
@@ -75,8 +78,8 @@ public class Odometer implements Runnable {
 
 
   /**
-   * This is the default constructor of this class. It initiates all motors and variables once.It
-   * cannot be accessed externally.
+   * This is the default constructor of this class. It initiates all motors and variables once.It cannot be accessed
+   * externally.
    */
   private Odometer() {
     setXYT(0, 0, 0);
@@ -102,7 +105,7 @@ public class Odometer implements Runnable {
   public void run() {
     long updateStart, updateEnd;
 
-    //Clearing tacho count and storing current tacho state
+    // Clearing tacho count and storing current tacho state
     leftMotor.resetTachoCount();
     rightMotor.resetTachoCount();
 
@@ -114,26 +117,26 @@ public class Odometer implements Runnable {
     while (true) {
       updateStart = System.currentTimeMillis();
 
-      //temporary variables to store data for positional calculations 
+      // temporary variables to store data for positional calculations
       double distance_left, distance_right, delta_distance, dX, dY;
 
-      //getting current tacho counts
+      // getting current tacho counts
       leftMotorTachoCount = leftMotor.getTachoCount();
       rightMotorTachoCount = rightMotor.getTachoCount();
 
-      //Distance moved by the wheels 
-      distance_left = Math.PI*WHEEL_RAD*(leftMotorTachoCount - lastLeftTachoCount) /180;
-      distance_right = Math.PI*WHEEL_RAD*(rightMotorTachoCount - lastRightTachoCount) /180;
+      // Distance moved by the wheels
+      distance_left = Math.PI * WHEEL_RAD * (leftMotorTachoCount - lastLeftTachoCount) / 180;
+      distance_right = Math.PI * WHEEL_RAD * (rightMotorTachoCount - lastRightTachoCount) / 180;
 
-      //Updating last tacho counts
+      // Updating last tacho counts
       lastLeftTachoCount = leftMotorTachoCount;
       lastRightTachoCount = rightMotorTachoCount;
 
-      //updating variables for calculations
-      delta_distance = 0.5*(distance_left+distance_right);
+      // updating variables for calculations
+      delta_distance = 0.5 * (distance_left + distance_right);
 
-      dX = delta_distance*Math.sin(Math.toRadians(this.theta));
-      dY = delta_distance*Math.cos(Math.toRadians(this.theta));
+      dX = delta_distance * Math.sin(Math.toRadians(this.theta));
+      dY = delta_distance * Math.cos(Math.toRadians(this.theta));
 
       odo.update(dX, dY);
 
@@ -170,7 +173,7 @@ public class Odometer implements Runnable {
 
       position[0] = x;
       position[1] = y;
-      position[2] =  theta;
+      position[2] = theta;
     } catch (InterruptedException e) {
       e.printStackTrace();
     } finally {
@@ -181,14 +184,13 @@ public class Odometer implements Runnable {
   }
 
   /**
-   * Adds dx, dy and dtheta to the current values of x, y and theta, respectively. Useful for
-   * odometry.
-   * Note: The method has been modified from the provided skeleton code. Provided method took 3 parameters where the 
-   * third parameter was the Theta value to update.
-   * Method now takes only 2 parameters to update the x and y direction movement of the robot.
-   * Theta value is now directly calculated by the tacho counts of the left and right motors of the robot. Value 
-   * calculation does not depend on the distance calculations for the left and right motors which was mathematically 
+   * Adds dx, dy and dtheta to the current values of x, y and theta, respectively. Useful for odometry. Note: The method
+   * has been modified from the provided skeleton code. Provided method took 3 parameters where the third parameter was
+   * the Theta value to update. Method now takes only 2 parameters to update the x and y direction movement of the
+   * robot. Theta value is now directly calculated by the tacho counts of the left and right motors of the robot. Value
+   * calculation does not depend on the distance calculations for the left and right motors which was mathematically
    * derived.
+   * 
    * @param dx
    * @param dy
    */
@@ -198,8 +200,8 @@ public class Odometer implements Runnable {
     try {
       x += dx;
       y += dy;
-      double pureTheta = (leftMotorTachoCount-rightMotorTachoCount)/CONSTANT;
-      theta = (360+pureTheta)%360; // keeps the updates within 360 degrees
+      double pureTheta = (leftMotorTachoCount - rightMotorTachoCount) / CONSTANT;
+      theta = (360 + pureTheta) % 360; // keeps the updates within 360 degrees
       isResetting = false;
       doneResetting.signalAll(); // Let the other threads know we are done resetting
     } finally {
@@ -207,7 +209,7 @@ public class Odometer implements Runnable {
     }
 
   }
-  
+
   /**
    * Overrides the values of x, y and theta. Use for odometry correction.
    * 
@@ -245,11 +247,21 @@ public class Odometer implements Runnable {
       lock.unlock();
     }
   }
-  
-  
+
+  /**
+   * TODO: Method Description
+   * 
+   * @param off value to offset by
+   */
   public void setOffset(double off) {
     this.offset = off;
   }
+
+  /**
+   * TODO: Method returns offset value
+   * 
+   * @return offset value
+   */
   public double getOffset() {
     return this.offset;
   }
