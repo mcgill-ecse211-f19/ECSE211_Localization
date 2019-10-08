@@ -85,16 +85,18 @@ public class Resources {
    * The LCD.
    */
   public static final TextLCD LCD = LocalEV3.get().getTextLCD();
-  
+
   /**
    * proportionality constant representing ratio of wheel turn degrees to robot turn degrees
    * 1:6.95
    */
-  public static final double CONSTANT = 7.09;
-  
-  public static final int D = 40;
-  
-  public static final int K = 1;
+  public static final double CONSTANT = 7.05;
+
+  public static final int COMMON_D = 40;
+
+  public static final int FALLINGEDGE_K = 1;
+
+  public static final int RISINGEDGE_K = 3;
 
   /**
    * The odometer.

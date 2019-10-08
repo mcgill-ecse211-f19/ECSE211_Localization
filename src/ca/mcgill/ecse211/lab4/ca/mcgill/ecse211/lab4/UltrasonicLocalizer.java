@@ -13,7 +13,7 @@ public class UltrasonicLocalizer {
     rightMotor.backward();
     while(true)
     {
-      if(UP.getDistance() < D - K) {
+      if(UP.getDistance() < COMMON_D - FALLINGEDGE_K) {
         this.alpha =  odometer.getXYT()[2];
         leftMotor.setSpeed(0);
         rightMotor.setSpeed(0);
@@ -28,7 +28,7 @@ public class UltrasonicLocalizer {
     leftMotor.backward();
     rightMotor.forward();
     while(true) {
-      if(UP.getDistance() < D - K) {
+      if(UP.getDistance() < COMMON_D - FALLINGEDGE_K) {
         this.beta =  odometer.getXYT()[2];
         leftMotor.setSpeed(0);
         rightMotor.setSpeed(0);
@@ -43,7 +43,6 @@ public class UltrasonicLocalizer {
     try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     leftMotor.setSpeed(ROTATE_SPEED);
@@ -59,7 +58,7 @@ public class UltrasonicLocalizer {
     rightMotor.backward();
     while(true)
     {
-      if(UP.getDistance() > D + K) {
+      if(UP.getDistance() > COMMON_D + RISINGEDGE_K) {
         this.alpha =  odometer.getXYT()[2];
         leftMotor.setSpeed(0);
         rightMotor.setSpeed(0);
@@ -74,7 +73,7 @@ public class UltrasonicLocalizer {
     leftMotor.backward();
     rightMotor.forward();
     while(true) {
-      if(UP.getDistance() > D + K) {
+      if(UP.getDistance() > COMMON_D + RISINGEDGE_K) {
         this.beta =  odometer.getXYT()[2];
         leftMotor.setSpeed(0);
         rightMotor.setSpeed(0);

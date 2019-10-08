@@ -36,8 +36,8 @@ public class Navigation extends Thread{
     //set accelerations and speed to default values
     leftMotor.setAcceleration(ACCELERATION);
     rightMotor.setAcceleration(ACCELERATION);
-    leftMotor.setSpeed(FORWARD_SPEED);
-    rightMotor.setSpeed(FORWARD_SPEED);
+    leftMotor.setSpeed(ROTATE_SPEED);
+    rightMotor.setSpeed(ROTATE_SPEED);
 
 
     //Get positional values and calculate differences from given co-ordinate
@@ -66,6 +66,44 @@ public class Navigation extends Thread{
     rightMotor.setSpeed(ROTATE_SPEED);
     leftMotor.rotate((int)(distance*180/(WHEEL_RAD*Math.PI)), true);
     rightMotor.rotate((int)(distance*180/(WHEEL_RAD*Math.PI)));
+  }
+
+  public static void travelTo(final double x, final double y, boolean risingEdge) {
+    //set accelerations and speed to default values
+    leftMotor.setAcceleration(ACCELERATION);
+    rightMotor.setAcceleration(ACCELERATION);
+    leftMotor.setSpeed(ROTATE_SPEED);
+    rightMotor.setSpeed(ROTATE_SPEED);
+
+
+    //Get positional values and calculate differences from given co-ordinate
+    double[] xyt = odometer.getXYT();
+    double dx = (x*TILE_SIZE)-xyt[0];
+    double dy = (y*TILE_SIZE)-xyt[1];
+    double dtheta = (Math.toDegrees(Math.atan2(dx,dy))-xyt[2]);
+
+    //adjust dtheta (degrees to turn) so that it's always smaller than 360
+    if(dtheta > 360 || dtheta < -360)
+      dtheta = dtheta % 360;
+
+    //Shortest turn calculations
+    if(dtheta >180)
+      dtheta =-1*(360-dtheta);
+    if(dtheta < -180)
+      dtheta = (360+dtheta);
+
+    LCD.drawString("dT: " + dtheta, 0, 3);
+    //Turn to correct angle
+    turnTo(dtheta);
+
+    //calculate distance to move and move said distance
+    final double distance = Math.sqrt( dx*dx + dy*dy);
+    leftMotor.setSpeed(ROTATE_SPEED);
+    rightMotor.setSpeed(ROTATE_SPEED);
+    if(risingEdge) {
+    leftMotor.rotate((int)(-1*distance*180/(WHEEL_RAD*Math.PI)), true);
+    rightMotor.rotate((int)(-1*distance*180/(WHEEL_RAD*Math.PI)));
+    }
   }
 
   /**
