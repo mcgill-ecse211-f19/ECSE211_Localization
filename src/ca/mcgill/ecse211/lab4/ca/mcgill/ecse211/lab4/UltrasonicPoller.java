@@ -5,11 +5,11 @@ import static ca.mcgill.ecse211.lab4.Resources.*;
 /**
  * Samples the US sensor and invokes the selected controller on each cycle.
  * 
- * Control of the wall follower is applied periodically by the UltrasonicPoller thread. The while
+ * Control of the ultrasonic localizer is applied periodically by the UltrasonicPoller thread. The while
  * loop at the bottom executes in a loop. Assuming that the us.fetchSample, and cont.processUSData
- * methods operate in about 20ms, and that the thread sleeps for 50 ms at the end of each loop, then
- * one cycle through the loop is approximately 70 ms. This corresponds to a sampling rate of 1/70ms
- * or about 14 Hz.
+ * methods operate in about 20ms, and that the thread sleeps for 25 ms at the end of each loop, then
+ * one cycle through the loop is approximately 45 ms. This corresponds to a sampling rate of 1/45ms
+ * or about 22.2 Hz.
  */
 public class UltrasonicPoller implements Runnable {
 
