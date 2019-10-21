@@ -58,12 +58,12 @@ public class Resources {
   /**
    * The left motor.
    */
-  public static final EV3LargeRegulatedMotor leftMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort("A"));
+  public static final EV3LargeRegulatedMotor leftMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort("D"));
 
   /**
    * The right motor.
    */
-  public static final EV3LargeRegulatedMotor rightMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort("D"));
+  public static final EV3LargeRegulatedMotor rightMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort("A"));
   /**
    * The Ultrasonic sensor
    */
@@ -83,12 +83,36 @@ public class Resources {
   /**
    * The LCD.
    */
+  
+  public static final BallisticLauncher ballisticLauncher = BallisticLauncher.getBallisticLauncher();
   public static final TextLCD LCD = LocalEV3.get().getTextLCD();
 
   /**
    * proportionality constant representing ratio of wheel turn degrees to robot turn degrees 1:7.05
    */
-  public static final double CONSTANT = 7.05;
+  public static final double CONSTANT = 6.95;
+  
+  /**
+   * The left ballistic motor.
+   */
+  public static final EV3LargeRegulatedMotor leftBallisticMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort("B"));
+  /**
+   * The right ballistic motor.
+   */
+  
+  /**
+   * Coefficient of the launching process to adjust the speed of the motors in function of the distance
+   */
+  public static final int LAUNCH_COEFFICIENT = 12; //HAS TO BE DETERMINED BY TESTING
+  
+  /**
+   * Angle of rotation of the launching motors during launch
+   */
+  public static final int LAUNCHING_ANGLE = 180;
+  /**
+   * The right ballistic motor.
+   */
+  public static final EV3LargeRegulatedMotor rightBallisticMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort("C"));
 
   /**
    * Arbitrary threshold constant for rising and falling edge cases for the ultrasonic localizer

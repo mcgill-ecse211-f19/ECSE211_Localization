@@ -35,9 +35,13 @@ public class Main {
     // Light localization routine
     LightLocalizer.lightLocalize();
 
-    while (Button.waitForAnyPress() != Button.ID_ESCAPE) {
-    } // do nothing
 
+
+    double distance = 40;
+    
+    Navigation.travelTo(1.0, 1.0,false);
+    Navigation.turnTo(0);
+    ballisticLauncher.launch(distance);
     System.exit(0);
 
   }

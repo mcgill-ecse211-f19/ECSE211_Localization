@@ -73,15 +73,19 @@ public class LightLocalizer {
     double y = -12 * Math.cos(Math.toRadians(thetaX / 2));
     odometer.setXYT(x, y, odometer.getXYT()[2]);
 
-    double deltaTheta = 90 - angles[3] + 180 + thetaY / 2;
+    double deltaTheta = 90 - angles[3]  + thetaY / 2;
     odometer.setOffset(odometer.getOffset() + deltaTheta);
 
     // Perform distance from (1,1) correction based on the type of US Localizer mode selected
+    if(odometer.getXYT()[1]+odometer.getXYT()[0] > 1)
+    {
     if (Main.buttonChoice == Button.ID_RIGHT) {
       Navigation.travelTo(0, 0, true);
     } else {
       Navigation.travelTo(0, 0, false);
     }
+    }
+    
 
     try {
       Thread.sleep(1000);
